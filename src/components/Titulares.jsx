@@ -1,0 +1,38 @@
+import React from 'react'
+import { connect } from 'react-redux'
+
+const Titulares = ({titulares, quitarTitular}) => {
+    return (
+        <section>
+            <h2>Titulares</h2>
+            <div className="cancha">
+                {
+                    titulares.map(j=>(
+                        <article className="" key={j.id}>
+                            <div>
+                                <img src={j.foto} alt="" />
+                                <button onClick={()=> quitarTitular(j)}>X</button>
+                            </div>
+                            <p>{j.nombre}</p>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+    )
+}
+const mapStateToProps= state=>({ /* la defino y se la paso a connect */
+    titulares: state.titulares 
+})
+const mapDispatchToProps = dispatch =>({
+
+    quitarTitular(jugador) {
+        dispatch({
+            type: "QUITAR_TITULAR",
+            jugador
+        })
+    }
+
+})
+ 
+export default connect(mapStateToProps,mapDispatchToProps)(Titulares)
